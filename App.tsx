@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
-
 export default function App() {
   const [isFontLoaded, setFontLoaded] = useState(false);
 
@@ -11,7 +10,8 @@ export default function App() {
   const getFont = async () => {
     if (!isFontLoaded) {
       Font.loadAsync({
-        string: require("./assets/font"),
+        "poppins-light": require("./assets/fonts/Poppins-Light.ttf"),
+        "poppins-regular": require("./assets/fonts/Poppins-Regular.ttf"),
       });
     }
   };
