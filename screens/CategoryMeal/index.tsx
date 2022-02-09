@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import Theme from "../../constants";
+import { View, Text, Button, StyleSheet, Platform } from "react-native";
 import { CATEGORIES } from "../../data";
 
 interface ICategoriesSelected {
@@ -28,6 +29,31 @@ const CatergoryMeal = (props: any) => {
       />
     </View>
   );
+};
+
+CatergoryMeal.navigationOptions = (navData: any) => {
+  const navCategoryId: string = navData.navigation?.getParam("categoryMealId");
+
+  const navSelectedCategory = CATEGORIES.find(
+    (item) => item.id === navCategoryId
+  );
+
+  return {
+    headerTitle: navSelectedCategory && navSelectedCategory.title,
+    headerStyle: {
+      backgroundColor:
+        Platform.OS === "android"
+          ? Theme.colors.primary
+          : Theme.colors.secondary,
+    },
+
+    headerTitleStyle: {
+      color:
+        Platform.OS === "android"
+          ? Theme.colors.secondary
+          : Theme.colors.primary,
+    },
+  };
 };
 
 export default CatergoryMeal;

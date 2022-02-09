@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   Platform,
 } from "react-native";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 import Theme from "../../constants";
 import { CATEGORIES } from "../../data";
 
-const CatergoriesMain = (props: any) => {
+const CatergoriesMain: NavigationStackScreenComponent = (props: any) => {
   const showGridItems = (itemData: any) => {
     return (
       <>
@@ -41,7 +42,8 @@ CatergoriesMain.navigationOptions = {
     backgroundColor:
       Platform.OS === "android" ? Theme.colors.primary : Theme.colors.secondary,
   },
-  headerTintColor: {
+
+  headerTitleStyle: {
     color:
       Platform.OS === "android" ? Theme.colors.secondary : Theme.colors.primary,
   },
