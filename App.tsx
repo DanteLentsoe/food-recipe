@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import MealNavigation from "./navigation";
@@ -24,14 +22,9 @@ export default function App() {
     onFinish={() => setFontLoaded(true)}
   />;
 
-  return <MealNavigation />;
+  return (
+    <>
+      <MealNavigation />
+    </>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
