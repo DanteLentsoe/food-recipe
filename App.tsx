@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import MealNavigation from "./navigation";
 export default function App() {
   const [isFontLoaded, setFontLoaded] = useState(false);
 
@@ -23,12 +24,7 @@ export default function App() {
     onFinish={() => setFontLoaded(true)}
   />;
 
-  return (
-    <View style={styles.container}>
-      <Text>Main</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  return <MealNavigation />;
 }
 
 const styles = StyleSheet.create({
