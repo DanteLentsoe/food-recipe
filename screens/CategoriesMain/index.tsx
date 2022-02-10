@@ -1,33 +1,22 @@
 import React from "react";
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import { NavigationStackScreenComponent } from "react-navigation-stack";
-import Theme from "../../constants";
+import CatergoryTile from "../../components/CategoryTile";
 import { CATEGORIES } from "../../data";
 
 const CatergoriesMain: NavigationStackScreenComponent = (props: any) => {
   const showGridItems = (itemData: any) => {
     return (
       <>
-        <TouchableOpacity
-          style={styles.gridContainer}
+        <CatergoryTile
+          title={itemData.item.title}
+          hue={itemData.item.color}
           onPress={() => {
             props.navigation.navigate("CatergoryMealsScreen", {
               categoryMealId: itemData.item.id,
             });
           }}
-        >
-          <View>
-            <Text>{itemData.item.title}</Text>
-          </View>
-        </TouchableOpacity>
+        />
       </>
     );
   };
@@ -38,15 +27,6 @@ const CatergoriesMain: NavigationStackScreenComponent = (props: any) => {
 
 CatergoriesMain.navigationOptions = {
   headerTitle: "Meal Categories",
-  headerStyle: {
-    backgroundColor:
-      Platform.OS === "android" ? Theme.colors.primary : Theme.colors.secondary,
-  },
-
-  headerTitleStyle: {
-    color:
-      Platform.OS === "android" ? Theme.colors.secondary : Theme.colors.primary,
-  },
 };
 
 export default CatergoriesMain;
