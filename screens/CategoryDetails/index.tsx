@@ -1,10 +1,15 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import { MEALS } from "../../data";
 
 const CatergoriesDetails = (props: any) => {
+  const mealIdRef = props.navigation.getParam("mealId");
+
+  const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
+  console.log("meal ID props ", individualMeal);
   return (
     <View style={styles.container}>
-      <Text>Catergories Details Meal</Text>
+      <Text>{individualMeal && individualMeal.title}</Text>
       <Button
         title="Catergory Details"
         onPress={() => {
