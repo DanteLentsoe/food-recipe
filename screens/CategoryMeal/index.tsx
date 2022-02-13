@@ -1,8 +1,15 @@
 import React from "react";
 import Theme from "../../constants";
-import { View, Text, Button, StyleSheet, Platform } from "react-native";
-import { CATEGORIES } from "../../data";
-
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Platform,
+  FlatList,
+} from "react-native";
+import { CATEGORIES, MEALS } from "../../data";
+import MealItem from "../../components/MealItem";
 interface ICategoriesSelected {
   id?: string;
   title?: string;
@@ -12,20 +19,36 @@ interface ICategoriesSelected {
 const CatergoryMeal = (props: any) => {
   const categoryId: string = props.navigation.getParam("categoryMealId");
 
+  const renderMealItem = (itemData: any) => {
+    return (
+      <MealItem
+        data={itemData.item}
+        moveToMeal={() => {
+          props.navigation.navigate({
+            routeName: "CatergoryMealDetails",
+            params: { mealId: itemData.item.id },
+          });
+        }}
+      />
+    );
+  };
+
   // get the unique item in the data
   const selectedCategory: ICategoriesSelected | undefined = CATEGORIES.find(
     (item) => item.id === categoryId
   );
 
+  const selectedCategoryMeal = MEALS.filter(
+    // @ts-ignore
+    (meal) => meal.categoryIdList.indexOf(categoryId) >= 0
+  );
+
   return (
     <View style={styles.container}>
-      <Text>{selectedCategory && selectedCategory.title}</Text>
-      <Text>Catergory Meal ................ </Text>
-      <Button
-        title="Catergory Details"
-        onPress={() => {
-          props.navigation.navigate("CatergoryMealDetails");
-        }}
+      <FlatList
+        data={selectedCategoryMeal}
+        renderItem={renderMealItem}
+        style={{ width: "100%" }}
       />
     </View>
   );

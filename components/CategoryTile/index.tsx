@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   title: {
-    fontFamily: "monospace",
+    // fontFamily: "monospace",
     fontSize: 15,
   },
   gridContainer: {
