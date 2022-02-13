@@ -7,7 +7,6 @@ import {
 } from "react-native";
 
 const MealItem = (props: any) => {
-  console.log("check props ", props.moveToMeal);
   return (
     <>
       <View style={styles.mealContainer}>

@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Platform } from "react-native";
+import Theme from "../../constants";
 import { MEALS } from "../../data";
 
 const CatergoriesDetails = (props: any) => {
   const mealIdRef = props.navigation.getParam("mealId");
 
   const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
-  console.log("meal ID props ", individualMeal);
   return (
     <View style={styles.container}>
       <Text>{individualMeal && individualMeal.title}</Text>
@@ -27,6 +27,31 @@ const CatergoriesDetails = (props: any) => {
 };
 
 export default CatergoriesDetails;
+
+CatergoriesDetails.navigationOptions = (navData: any) => {
+  const navCategoryId: string = navData.navigation?.getParam("categoryMealId");
+
+  const navSelectedCategory = MEALS.find((item) => item.id === navCategoryId);
+
+  console.log("type check ", navSelectedCategory);
+
+  return {
+    headerTitle: navSelectedCategory && navSelectedCategory.title,
+    headerStyle: {
+      backgroundColor:
+        Platform.OS === "android"
+          ? Theme.colors.primary
+          : Theme.colors.secondary,
+    },
+
+    headerTitleStyle: {
+      color:
+        Platform.OS === "android"
+          ? Theme.colors.secondary
+          : Theme.colors.primary,
+    },
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
