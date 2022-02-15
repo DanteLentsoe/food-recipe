@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, Button, StyleSheet, Platform } from "react-native";
 import Theme from "../../constants";
 import { MEALS } from "../../data";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../../components/HeaderButton";
 
 const CatergoriesDetails = (props: any) => {
   const mealIdRef = props.navigation.getParam("mealId");
@@ -29,11 +31,11 @@ const CatergoriesDetails = (props: any) => {
 export default CatergoriesDetails;
 
 CatergoriesDetails.navigationOptions = (navData: any) => {
-  const navCategoryId: string = navData.navigation?.getParam("categoryMealId");
+  const navCategoryId: string = navData.navigation?.getParam("mealId");
 
-  const navSelectedCategory = MEALS.find((item) => item.id === navCategoryId);
-
-  console.log("type check ", navSelectedCategory);
+  const navSelectedCategory = MEALS.find((item) => {
+    return item.id === navCategoryId;
+  });
 
   return {
     headerTitle: navSelectedCategory && navSelectedCategory.title,
@@ -50,6 +52,17 @@ CatergoriesDetails.navigationOptions = (navData: any) => {
           ? Theme.colors.secondary
           : Theme.colors.primary,
     },
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="back"
+          iconName="ios-star"
+          onPress={() => {
+            console.log("check heck");
+          }}
+        />
+      </HeaderButtons>
+    ),
   };
 };
 
