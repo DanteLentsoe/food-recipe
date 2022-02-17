@@ -4,12 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import CatergoriesMain from "../screens/CategoriesMain";
 import CatergoryMeals from "../screens/CategoryMeal";
 import CatergoriesDetails from "../screens/CategoryDetails";
 import Favorites from "../screens/Favorites";
+import Filter from "../screens/Filter";
 
 const defaultNavigationStack = {
   defaultNavigationOptions: {
@@ -45,7 +45,7 @@ const MealNavigation = createStackNavigator(
 );
 
 // Favorite Screen Stack Settings
-createStackNavigator(
+const FavStack = createStackNavigator(
   {
     FavoriteMeals: Favorites,
     // @ts-ignore
@@ -67,7 +67,7 @@ const tabsConfiguration = {
     },
   },
   FavTab: {
-    screen: Favorites,
+    screen: FavStack,
     navigationOptions: {
       tabBarLabel: "Favorites",
       tabBarIcon: (tabData: any) => {
@@ -83,4 +83,13 @@ const NavTabs = createBottomTabNavigator(tabsConfiguration, {
   },
 });
 
-export default createAppContainer(NavTabs);
+const FilterScreenNav = createStackNavigator({
+  Filter: Filter,
+});
+
+const SideDrawer = createDrawerNavigator({
+  DrawerMain: NavTabs,
+  Filters: FilterScreenNav,
+});
+
+export default createAppContainer(SideDrawer);
