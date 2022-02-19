@@ -13,10 +13,19 @@ import { MEALS } from "../../data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
 
+const ListItem = (props: any) => {
+  return (
+    <View style={styles.listContainer}>
+      <Text>{props.children}</Text>
+    </View>
+  );
+};
+
 const CatergoriesDetails = (props: any) => {
   const mealIdRef = props.navigation.getParam("mealId");
 
   const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
+
   return (
     <ScrollView>
       <Image
@@ -28,10 +37,20 @@ const CatergoriesDetails = (props: any) => {
         <Text>{individualMeal && individualMeal.difficulty.toUpperCase()}</Text>
         <Text>{individualMeal && individualMeal.budget.toUpperCase()}</Text>
       </View>
-      <Text>Ingredients</Text>
-      <Text>List of ingredients</Text>
-      <Text>Steps</Text>
-      <Text>List of Steps</Text>
+      <Text style={styles.title}>Ingredients</Text>
+      <Text style={styles.subTitle}>List of ingredients:</Text>
+      {individualMeal &&
+        individualMeal.ingredients.map((ingredient: string, index: number) => {
+          return <ListItem key={index}>{ingredient}</ListItem>;
+        })}
+      <Text style={styles.title}>Steps</Text>
+      <Text style={styles.subTitle}>List of Steps:</Text>
+      {individualMeal &&
+        individualMeal.instructions.map(
+          (instructions: string, index: number) => {
+            return <ListItem key={index}>{instructions}</ListItem>;
+          }
+        )}
       <View style={styles.container}>
         <Text>{individualMeal && individualMeal.title}</Text>
         <Button
@@ -109,4 +128,22 @@ const styles = StyleSheet.create({
     height: 200,
   },
   mealDetail: {},
+  title: {
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 22,
+    textAlign: "center",
+  },
+  listContainer: {
+    marginVertical: 10,
+    marginHorizontal: 20,
+    borderWidth: 1,
+    padding: 10,
+    borderColor: "#ccc",
+  },
+  subTitle: {
+    left: 10,
+    padding: 5,
+    fontSize: 17,
+  },
 });
