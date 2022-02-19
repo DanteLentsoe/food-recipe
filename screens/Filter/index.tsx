@@ -1,12 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, Switch } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
 
 const Filter = () => {
   return (
-    <View>
-      <Text>Filter </Text>
+    <View style={styles.screen}>
+      <Text style={styles.title}> Filter </Text>
+      <View style={styles.filterContainer}>
+        <Text>Gluten Free</Text>
+        <Switch />
+      </View>
     </View>
   );
 };
@@ -29,3 +33,20 @@ Filter.navigationOptions = (navData: any) => {
     ),
   };
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    display: "flex",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 22,
+    margin: 20,
+    textAlign: "center",
+  },
+  filterContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+});
