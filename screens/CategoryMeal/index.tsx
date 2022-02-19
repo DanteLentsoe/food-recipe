@@ -1,15 +1,9 @@
 import React from "react";
 import Theme from "../../constants";
-import {
-  View,
-  Text,
-  Button,
-  StyleSheet,
-  Platform,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { CATEGORIES, MEALS } from "../../data";
-import MealItem from "../../components/MealItem";
+import MealList from "../../components/MealList";
+
 interface ICategoriesSelected {
   id?: string;
   title?: string;
@@ -18,20 +12,6 @@ interface ICategoriesSelected {
 
 const CatergoryMeal = (props: any) => {
   const categoryId: string = props.navigation.getParam("categoryMealId");
-
-  const renderMealItem = (itemData: any) => {
-    return (
-      <MealItem
-        data={itemData.item}
-        moveToMeal={() => {
-          props.navigation.navigate({
-            routeName: "CatergoryMealDetails",
-            params: { mealId: itemData.item.id },
-          });
-        }}
-      />
-    );
-  };
 
   // get the unique item in the data
   const selectedCategory: ICategoriesSelected | undefined = CATEGORIES.find(
@@ -44,13 +24,7 @@ const CatergoryMeal = (props: any) => {
   );
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={selectedCategoryMeal}
-        renderItem={renderMealItem}
-        style={{ width: "100%" }}
-      />
-    </View>
+    <MealList dataList={selectedCategoryMeal} navigation={props.navigation} />
   );
 };
 
