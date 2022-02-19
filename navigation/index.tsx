@@ -81,15 +81,34 @@ const NavTabs = createBottomTabNavigator(tabsConfiguration, {
   tabBarOptions: {
     activeTintColor: Theme.colors.tertiary,
   },
+  navigationOptions: {
+    drawerLabel: "All Meals",
+  },
 });
 
-const FilterScreenNav = createStackNavigator({
-  Filter: Filter,
-});
+// Filter Screen Stack Settings
+const FilterScreenNav = createStackNavigator(
+  {
+    Filter: Filter,
+  },
+  {
+    navigationOptions: {
+      drawerLabel: "Filtered Meals",
+    },
+  }
+);
 
-const SideDrawer = createDrawerNavigator({
-  DrawerMain: NavTabs,
-  Filters: FilterScreenNav,
-});
+// Main Stack Settings
+const SideDrawer = createDrawerNavigator(
+  {
+    DrawerMain: NavTabs,
+    Filters: FilterScreenNav,
+  },
+  {
+    contentOptions: {
+      activeTintColor: Theme.colors.tertiary,
+    },
+  }
+);
 
 export default createAppContainer(SideDrawer);

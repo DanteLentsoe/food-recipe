@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Platform } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  Button,
+  StyleSheet,
+  Platform,
+} from "react-native";
 import Theme from "../../constants";
 import { MEALS } from "../../data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -10,21 +18,36 @@ const CatergoriesDetails = (props: any) => {
 
   const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
   return (
-    <View style={styles.container}>
-      <Text>{individualMeal && individualMeal.title}</Text>
-      <Button
-        title="Catergory Details"
-        onPress={() => {
-          props.navigation.navigate("CatergoryMealsScreen");
-        }}
+    <ScrollView>
+      <Image
+        source={{ uri: individualMeal && individualMeal.imgPath }}
+        style={styles.img}
       />
-      <Button
-        title="Back "
-        onPress={() => {
-          props.navigation.goBack();
-        }}
-      />
-    </View>
+      <View style={{ ...styles.itemGrid, ...styles.mealDetail }}>
+        <Text>{individualMeal && individualMeal.duration}.. s</Text>
+        <Text>{individualMeal && individualMeal.difficulty.toUpperCase()}</Text>
+        <Text>{individualMeal && individualMeal.budget.toUpperCase()}</Text>
+      </View>
+      <Text>Ingredients</Text>
+      <Text>List of ingredients</Text>
+      <Text>Steps</Text>
+      <Text>List of Steps</Text>
+      <View style={styles.container}>
+        <Text>{individualMeal && individualMeal.title}</Text>
+        <Button
+          title="Catergory Details"
+          onPress={() => {
+            props.navigation.navigate("CatergoryMealsScreen");
+          }}
+        />
+        <Button
+          title="Back "
+          onPress={() => {
+            props.navigation.goBack();
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -73,4 +96,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  itemGrid: {
+    flexDirection: "row",
+    padding: 12,
+    justifyContent: "space-around",
+  },
+  itemImg: {
+    height: "80%",
+  },
+  img: {
+    width: "100%",
+    height: 200,
+  },
+  mealDetail: {},
 });
