@@ -3,6 +3,14 @@ import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import MealNavigation from "./navigation";
 import { enableScreens } from "react-native-screens";
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+import mealReducer from "./store/reducers/meals";
+
+const rootReducer = combineReducers({
+  allmeals: mealReducer,
+});
+const store = createStore(rootReducer);
 
 enableScreens();
 // get custom font
@@ -27,7 +35,9 @@ export default function App() {
 
   return (
     <>
-      <MealNavigation />
+      <Provider store={store}>
+        <MealNavigation />
+      </Provider>
     </>
   );
 }
