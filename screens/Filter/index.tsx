@@ -1,19 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Text, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
 import FilterSwitch from "../../components/FilterSwitch";
-import MEALS from "../../models";
+import Theme from "../../constants";
 
 const Filter = (props: any) => {
+  const { navigation } = props;
   const [isGlutenFree, setGlutenFree] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
   const [isLactoseFree, setIsLactoseFree] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
 
-  const mealIdRef = props.navigation.getParam("mealId");
+  // function to store para values
+  const filterHandler = useCallback(
+    (props: any) => {
+      const filters = {
+        vegan: isVegan,
+        veg: isVegetarian,
+        gluten: isGlutenFree,
+        lactose: isLactoseFree,
+      };
 
-  // const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
+      console.log("filters ", filters);
+    },
+    [isGlutenFree, isVegan, isLactoseFree, isVegetarian]
+  );
+
+  // call filter parameters on each render to store current state
+  useEffect(() => {
+    navigation.setParams({
+      saved: filterHandler,
+    });
+  }, [filterHandler]);
 
   return (
     <>
@@ -54,6 +73,18 @@ Filter.navigationOptions = (navData: any) => {
           iconName="ios-menu"
           onPress={() => {
             navData.navigation.openDrawer();
+          }}
+        />
+      </HeaderButtons>
+    ),
+    headerRight: (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Save"
+          iconName="ios-save"
+          color={Theme.colors.tertiary}
+          onPress={() => {
+            navData.navigation.getParam("saved")();
           }}
         />
       </HeaderButtons>
