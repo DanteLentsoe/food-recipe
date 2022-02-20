@@ -1,17 +1,44 @@
-import React from "react";
-import { View, Text, StyleSheet, Switch } from "react-native";
+import { useState } from "react";
+import { Text, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
+import FilterSwitch from "../../components/FilterSwitch";
+import MEALS from "../../models";
 
-const Filter = () => {
+const Filter = (props: any) => {
+  const [isGlutenFree, setGlutenFree] = useState(false);
+  const [isVegan, setIsVegan] = useState(false);
+  const [isLactoseFree, setIsLactoseFree] = useState(false);
+  const [isVegetarian, setIsVegetarian] = useState(false);
+
+  const mealIdRef = props.navigation.getParam("mealId");
+
+  // const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
+
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}> Filter </Text>
-      <View style={styles.filterContainer}>
-        <Text>Gluten Free</Text>
-        <Switch />
-      </View>
-    </View>
+    <>
+      <Text style={styles.title}> Filter Meal Types</Text>
+      <FilterSwitch
+        value={isGlutenFree}
+        onValueChange={(value: boolean) => setGlutenFree(value)}
+        title={"Gluten Free"}
+      />
+      <FilterSwitch
+        value={isLactoseFree}
+        onValueChange={(value: boolean) => setIsLactoseFree(value)}
+        title={"Lactose Free"}
+      />
+      <FilterSwitch
+        value={isVegan}
+        onValueChange={(value: boolean) => setIsVegan(value)}
+        title={"Vegan"}
+      />
+      <FilterSwitch
+        value={isVegetarian}
+        onValueChange={(value: boolean) => setIsVegetarian(value)}
+        title={"Vegeterian"}
+      />
+    </>
   );
 };
 
@@ -35,18 +62,9 @@ Filter.navigationOptions = (navData: any) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    display: "flex",
-    alignItems: "center",
-  },
   title: {
     fontSize: 22,
     margin: 20,
     textAlign: "center",
-  },
-  filterContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
   },
 });
