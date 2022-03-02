@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ScrollView,
   View,
@@ -9,9 +9,9 @@ import {
   Platform,
 } from "react-native";
 import Theme from "../../constants";
-import { MEALS } from "../../data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
+import { useSelector } from "react-redux";
 
 const ListItem = (props: any) => {
   return (
@@ -22,9 +22,23 @@ const ListItem = (props: any) => {
 };
 
 const CatergoriesDetails = (props: any) => {
+  const { navigation } = props;
+
+  const allMeals = useSelector((state: any) => {
+    return state.allmeals.meals;
+  });
+
   const mealIdRef = props.navigation.getParam("mealId");
 
-  const individualMeal = MEALS.find((meal) => meal.id === mealIdRef);
+  // get specific meal
+  const individualMeal = allMeals.find((meal: any) => meal.id === mealIdRef);
+
+  // push params for navigation title
+  useEffect(() => {
+    navigation.setParams({
+      mealCategoryTitle: individualMeal.title,
+    });
+  }, [individualMeal]);
 
   return (
     <ScrollView>
@@ -73,14 +87,15 @@ const CatergoriesDetails = (props: any) => {
 export default CatergoriesDetails;
 
 CatergoriesDetails.navigationOptions = (navData: any) => {
+  //get meal by id
   const navCategoryId: string = navData.navigation?.getParam("mealId");
 
-  const navSelectedCategory = MEALS.find((item) => {
-    return item.id === navCategoryId;
-  });
+  // get meal title by id
+  const mealTitleCategory: string =
+    navData.navigation?.getParam("mealCategoryTitle");
 
   return {
-    headerTitle: navSelectedCategory && navSelectedCategory.title,
+    headerTitle: mealTitleCategory,
     headerStyle: {
       backgroundColor:
         Platform.OS === "android"
