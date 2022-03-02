@@ -3,7 +3,7 @@ import Theme from "../../constants";
 import { StyleSheet, Platform } from "react-native";
 import { CATEGORIES, MEALS } from "../../data";
 import MealList from "../../components/MealList";
-
+import { useSelector } from "react-redux";
 interface ICategoriesSelected {
   id?: string;
   title?: string;
@@ -11,14 +11,12 @@ interface ICategoriesSelected {
 }
 
 const CatergoryMeal = (props: any) => {
+  const listedMeals = useSelector((state: any) => {
+    return state.allmeals.filters;
+  });
   const categoryId: string = props.navigation.getParam("categoryMealId");
 
-  // get the unique item in the data
-  const selectedCategory: ICategoriesSelected | undefined = CATEGORIES.find(
-    (item) => item.id === categoryId
-  );
-
-  const selectedCategoryMeal = MEALS.filter(
+  const selectedCategoryMeal = listedMeals.filter(
     // @ts-ignore
     (meal) => meal.categoryIdList.indexOf(categoryId) >= 0
   );

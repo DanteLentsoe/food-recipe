@@ -3,11 +3,15 @@ import MealList from "../../components/MealList";
 import { MEALS } from "../../data";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
+import { useSelector } from "react-redux";
 
 const Favorites = (props: any) => {
-  const selectedFavMeal = MEALS.filter((meal) => meal.id === "m1");
+  // get stored fav meals from store
+  const favMeals = useSelector((state: any) => {
+    return state.allmeals.favMeals;
+  });
 
-  return <MealList dataList={selectedFavMeal} navigation={props.navigation} />;
+  return <MealList dataList={favMeals} navigation={props.navigation} />;
 };
 
 export default Favorites;
