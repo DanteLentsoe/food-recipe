@@ -6,11 +6,12 @@ import { enableScreens } from "react-native-screens";
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import mealReducer from "./store/reducers/meals";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const rootReducer = combineReducers({
   allmeals: mealReducer,
 });
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeWithDevTools());
 
 enableScreens();
 // get custom font
