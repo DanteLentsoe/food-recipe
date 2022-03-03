@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   ScrollView,
   View,
@@ -11,8 +11,8 @@ import {
 import Theme from "../../constants";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import HeaderButton from "../../components/HeaderButton";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { toogleFavMeal } from "../../store/actions";
 const ListItem = (props: any) => {
   return (
     <View style={styles.listContainer}>
@@ -28,17 +28,27 @@ const CatergoriesDetails = (props: any) => {
     return state.allmeals.meals;
   });
 
+  const dispatch = useDispatch();
+
   const mealIdRef = props.navigation.getParam("mealId");
 
   // get specific meal
   const individualMeal = allMeals.find((meal: any) => meal.id === mealIdRef);
+
+  const toogleFavHandler = useCallback(() => {
+    dispatch(toogleFavMeal(mealIdRef));
+  }, [dispatch, mealIdRef]);
 
   // push params for navigation title
   useEffect(() => {
     navigation.setParams({
       mealCategoryTitle: individualMeal.title,
     });
-  }, [individualMeal]);
+
+    navigation.setParams({
+      favMealToggle: toogleFavHandler,
+    });
+  }, [individualMeal, toogleFavHandler, mealIdRef]);
 
   return (
     <ScrollView>
@@ -87,12 +97,12 @@ const CatergoriesDetails = (props: any) => {
 export default CatergoriesDetails;
 
 CatergoriesDetails.navigationOptions = (navData: any) => {
-  //get meal by id
-  const navCategoryId: string = navData.navigation?.getParam("mealId");
-
   // get meal title by id
   const mealTitleCategory: string =
     navData.navigation?.getParam("mealCategoryTitle");
+
+  // get favFunction param
+  const toogleFuncParam = navData.navigation?.getParam("favMealToggle");
 
   return {
     headerTitle: mealTitleCategory,
@@ -115,7 +125,7 @@ CatergoriesDetails.navigationOptions = (navData: any) => {
           title="back"
           iconName="ios-star"
           onPress={() => {
-            console.log("check heck");
+            toogleFuncParam();
           }}
         />
       </HeaderButtons>
