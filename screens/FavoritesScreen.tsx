@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { Text } from "react-native";
 
 function FavoritesScreen() {
   return <Text>The favorites screen!</Text>;

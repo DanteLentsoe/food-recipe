@@ -1,4 +1,17 @@
 class Meal {
+  id: any;
+  categoryIds: any;
+  title: any;
+  imageUrl: any;
+  ingredients: any;
+  steps: any;
+  duration: any;
+  complexity: any;
+  affordability: any;
+  isGlutenFree: any;
+  isVegan: any;
+  isVegetarian: any;
+  isLactoseFree: any;
   constructor(
     id,
     categoryIds,

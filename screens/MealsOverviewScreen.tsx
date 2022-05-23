@@ -1,8 +1,8 @@
-import { useLayoutEffect } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { useLayoutEffect } from "react";
+import { View, FlatList, StyleSheet } from "react-native";
 
-import MealItem from '../components/MealItem';
-import { MEALS, CATEGORIES } from '../data/dummy-data';
+import MealItem from "../components/MealItem";
+import { MEALS, CATEGORIES } from "../data/dummy-data";
 
 function MealsOverviewScreen({ route, navigation }) {
   const catId = route.params.categoryId;
@@ -12,9 +12,8 @@ function MealsOverviewScreen({ route, navigation }) {
   });
 
   useLayoutEffect(() => {
-    const categoryTitle = CATEGORIES.find(
-      (category) => category.id === catId
-    ).title;
+    const categoryTitle = CATEGORIES.find((category) => category.id === catId)
+      .title;
 
     navigation.setOptions({
       title: categoryTitle,
