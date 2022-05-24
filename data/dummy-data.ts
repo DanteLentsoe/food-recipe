@@ -1,17 +1,17 @@
-import CategoriesModel from "../models";
-import Meal from "../models/mealModal";
+import Category from "../models/category";
+import Meal from "../models/meal";
 
 export const CATEGORIES = [
-  new CategoriesModel("c1", "Italian", "#f5428d"),
-  new CategoriesModel("c2", "Quick & Easy", "#f54242"),
-  new CategoriesModel("c3", "Hamburgers", "#f5a442"),
-  new CategoriesModel("c4", "German", "#f5d142"),
-  new CategoriesModel("c5", "Light & Lovely", "#368dff"),
-  new CategoriesModel("c6", "Exotic", "#41d95d"),
-  new CategoriesModel("c7", "Breakfast", "#9eecff"),
-  new CategoriesModel("c8", "Asian", "#b9ffb0"),
-  new CategoriesModel("c9", "French", "#ffc7ff"),
-  new CategoriesModel("c10", "Summer", "#47fced"),
+  new Category("c1", "Italian", "#f5428d"),
+  new Category("c2", "Quick & Easy", "#f54242"),
+  new Category("c3", "Hamburgers", "#f5a442"),
+  new Category("c4", "German", "#f5d142"),
+  new Category("c5", "Light & Lovely", "#368dff"),
+  new Category("c6", "Exotic", "#41d95d"),
+  new Category("c7", "Breakfast", "#9eecff"),
+  new Category("c8", "Asian", "#b9ffb0"),
+  new Category("c9", "French", "#ffc7ff"),
+  new Category("c10", "Summer", "#47fced"),
 ];
 
 export const MEALS = [
@@ -43,7 +43,6 @@ export const MEALS = [
     false,
     true,
     true,
-    true,
     true
   ),
 
@@ -67,7 +66,6 @@ export const MEALS = [
       "Layer ham, the pineapple and cheese on the white bread",
       "Bake the toast for round about 10 minutes in the oven at 200°C",
     ],
-    false,
     false,
     false,
     false,
@@ -100,7 +98,6 @@ export const MEALS = [
     false,
     false,
     false,
-    true,
     true
   ),
 
@@ -131,7 +128,6 @@ export const MEALS = [
       "Remove, and drain on kitchen paper. Fry the parsley in the remaining oil and drain.",
       "Place the schnitzels on awarmed plate and serve garnishedwith parsley and slices of lemon.",
     ],
-    false,
     false,
     false,
     false,
@@ -167,8 +163,7 @@ export const MEALS = [
     true,
     false,
     true,
-    true,
-    false
+    true
   ),
 
   new Meal(
@@ -201,8 +196,7 @@ export const MEALS = [
     true,
     false,
     true,
-    false,
-    true
+    false
   ),
 
   new Meal(
@@ -231,8 +225,7 @@ export const MEALS = [
     true,
     false,
     true,
-    false,
-    true
+    false
   ),
 
   new Meal(
@@ -263,8 +256,7 @@ export const MEALS = [
     true,
     false,
     false,
-    true,
-    false
+    true
   ),
 
   new Meal(
@@ -311,8 +303,7 @@ export const MEALS = [
     true,
     false,
     true,
-    false,
-    true
+    false
   ),
   new Meal(
     "m10",
@@ -341,7 +332,6 @@ export const MEALS = [
     true,
     true,
     true,
-    true,
-    false
+    true
   ),
 ];
